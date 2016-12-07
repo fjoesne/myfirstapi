@@ -1,0 +1,12 @@
+{
+  "document": {
+    "author": "authorname",
+    "name": "name of document",
+    "type": "type of document",
+    "description": "short description of document",
+    "date": {
+      "created" : "<dateobject>",
+      "modified": "<dateobject>"
+    }
+  }
+}
