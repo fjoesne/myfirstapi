@@ -2,35 +2,11 @@ var express = require('express');
 //document route function.
 var documentRoute = function(Document){
   var router = express.Router();
-  //document list with support for filtering
+  var documentController = require('../controllers/documentController')(Document);
   router.route('/')
-    .post(function(req, res){
-      var document = new Document(req.body);
-      console.log(document);
-      document.save();
-      res.status(201).send(document);
-    })
-    .get(function(req, res) {
-      // filter limit
-      var query = {};
-      //author filtering
-      if (req.query.author) {
-        query.author = req.query.author;
-      };
-      //category filtering
-      if (req.query.category){
-        query.category = req.query.category;
-      };
-      Document.find(query, function(err, documents){
-        if (err) {
-          res.status(500).send(err);
-          console.log(err);
-        } else {
-          res.json(documents);
-        }
-      });
-  });
-  // get doc by ID
+    .post(documentController.post)
+    .get(documentController.get);
+
   router.use('/:docId', function(req, res, next) {
     Document.findById(req.params.docId, function(err, document){
       if (err) {

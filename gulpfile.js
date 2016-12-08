@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 var nodemon = require('gulp-nodemon');
+var gulpMocha = require('gulp-mocha');
 var nodemonConf =
 {
   script: 'app.js',
@@ -15,4 +16,8 @@ gulp.task('default', function() {
   .on('restart', function() {
     console.log('Files have changed, restarted, environments set. PORT: '+nodemonConf.env.PORT+' \n MONGO_DB: ' +nodemonConf.env.MONGO_DB);
   });
+});
+
+gulp.task('test', function(){
+  gulp.src('./tests/*.js', {read: false}).pipe(gulpMocha({reporter: 'nyan'}));
 });
