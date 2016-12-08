@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var dbUrl = 'mongodb://localhost/docdb';
+
 //database setup.
+var dbUrl = 'mongodb://localhost/docdb';
 var db;
 if (process.env.ENV){
   // use DB reflecting the environment. (test, dev, staging etc)
