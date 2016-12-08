@@ -15,7 +15,7 @@ var nodemonConf =
 gulp.task('default', function() {
   nodemon(nodemonConf)
   .on('restart', function() {
-    console.log('Files have changed, restarted, environments set. PORT: '+nodemonConf.env.PORT+' \n MONGO_DB: ' +nodemonConf.env.MONGO_DB);
+    console.log('Files have changed, restarted');
   });
 });
 
@@ -23,7 +23,7 @@ gulp.task('dev', function() {
   env({vars:{ENV:'dev'}});
   nodemon(nodemonConf)
   .on('restart', function() {
-    console.log('Files have changed, restarted, environments set. PORT: '+nodemonConf.env.PORT+' \n MONGO_DB: ' +nodemonConf.env.MONGO_DB);
+    console.log('Files have changed, restarted');
   });
 });
 
