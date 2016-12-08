@@ -11,6 +11,7 @@ app.use('/api', require('./routes/api'));
 app.get('/',function(req, res){
   res.send('My first API');
 });
+
 app.use(express.static(path.join(__dirname, '/mochawesome-reports')));
 
 app.listen(port, function(){

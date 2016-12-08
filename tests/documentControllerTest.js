@@ -3,22 +3,35 @@ var sinon = require('sinon');
 
 describe('Document Controller Test', function(){
   describe('Post', function(){
-    it('should not allow empty document title', function(){
-      //Mock Document object
-      var Document = function(book){this.save = function(){}};
-      var req = {
+    var Document = function(book){this.save = function(){}};
+    var req;
+    var res = {
+      status: sinon.spy(),
+      send: sinon.spy()
+    };
+    var documentController = require('../controllers/documentController')(Document);
+
+    beforeEach(function(done){
+      req = {
         body: {
-          author: 'Test Author'
+          title: 'Test Title',
+          author: 'Test Author',
+          category: 'Test Category'
         }
       };
-      var res = {
-        status: sinon.spy(),
-        send: sinon.spy()
-      };
-      var documentController = require('../controllers/documentController')(Document);
+      done();
+    })
+    it('Should not allow document without title', function(){
+      delete req.body.title;
       documentController.post(req, res);
       res.status.calledWith(400).should.equal(true, 'Bad Status' + res.status.args[0][0]);
       res.send.calledWith('Title required').should.equal(true);
+    })
+    it('Should not allow document without author', function(){
+      delete req.body.author;
+      documentController.post(req, res);
+      res.status.calledWith(400).should.equal(true, 'Bad Status' + res.status.args[0][0]);
+      res.send.calledWith('Author required').should.equal(true);
     })
   })
 });
