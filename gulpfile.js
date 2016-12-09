@@ -1,8 +1,9 @@
-var gulp = require('gulp')
-var nodemon = require('gulp-nodemon');
-var gulpMocha = require('gulp-mocha');
-var env = require('gulp-env');
-var supertest = require('supertest');
+var gulp = require('gulp'),
+  nodemon = require('gulp-nodemon'),
+  gulpMocha = require('gulp-mocha'),
+  env = require('gulp-env'),
+  supertest = require('supertest');
+
 var nodemonConf =
 {
   script: 'app.js',

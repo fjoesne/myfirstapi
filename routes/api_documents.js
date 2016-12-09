@@ -22,7 +22,11 @@ var documentRoute = function(Document){
   });
   router.route('/:docId')
     .get(function(req, res) {
-      res.json(req.document);
+      var hateoasDocument = req.document.toJSON();
+      hateoasDocument.links = {};
+      hateoasDocument.links.filterByThisAuthor = ('http://' + req.headers.host + '/api/documents/?author='+ hateoasDocument.author).replace(/ /g, '%20');
+      hateoasDocument.links.filterByThisCategory = ('http://' + req.headers.host + '/api/documents/?category='+ hateoasDocument.category).replace(/ /g, '%20');
+      res.json(hateoasDocument);
     })
     .put(function(req, res){
       req.document.title = req.body.title;

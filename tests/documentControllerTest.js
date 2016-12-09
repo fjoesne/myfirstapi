@@ -12,13 +12,8 @@ describe('Document Controller Test', function(){
     var documentController = require('../controllers/documentController')(Document);
 
     beforeEach(function(done){
-      req = {
-        body: {
-          title: 'Test Title',
-          author: 'Test Author',
-          category: 'Test Category'
-        }
-      };
+      //reset the body.
+      req = { body: { title: 'Test Title', author: 'Test Author', category: 'Test Category' }};
       done();
     })
     it('Should not allow document without title', function(){
@@ -29,6 +24,12 @@ describe('Document Controller Test', function(){
     })
     it('Should not allow document without author', function(){
       delete req.body.author;
+      documentController.post(req, res);
+      res.status.calledWith(400).should.equal(true, 'Bad Status' + res.status.args[0][0]);
+      res.send.calledWith('Author required').should.equal(true);
+    })
+    it('Should not allow document without category', function(){
+      delete req.body.category;
       documentController.post(req, res);
       res.status.calledWith(400).should.equal(true, 'Bad Status' + res.status.args[0][0]);
       res.send.calledWith('Author required').should.equal(true);

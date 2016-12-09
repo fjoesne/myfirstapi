@@ -35,7 +35,14 @@ var documentController = function(Document) {
         res.status(500).send(err);
         console.log(err);
       } else {
-        res.json(documents);
+        var returnDocuments = [];
+        documents.forEach(function(element, index, array){
+          var hateoasDocument = element.toJSON();
+          hateoasDocument.links = {};
+          hateoasDocument.links.self = 'http://'+ req.headers.host +'/api/documents/'+hateoasDocument._id;
+          returnDocuments.push(hateoasDocument);
+        });
+        res.json(returnDocuments);
       }
     });
   };

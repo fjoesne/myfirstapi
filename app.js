@@ -9,6 +9,8 @@ app.use('/api', require('./routes/api'));
 app.get('/',function(req, res){
   res.send('My first API');
 });
+var inform = 'Listning on port: '+ port + '\nlink: http://localhost:'+port+'/';
+if (process.env.ENV) {inform = 'Running under environment: ' + process.env.ENV};
 //For development
 if (process.env.ENV == 'dev') {
   //ease access to test-results.
@@ -20,7 +22,7 @@ if (process.env.ENV == 'dev') {
 };
 
 app.listen(port, function(){
-    console.log('Listning on port: '+ port + '\nlink: http://localhost:'+port+'/' );
+    console.log(inform);
 });
 
-exports.module = app;
+module.exports = app;
